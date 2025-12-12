@@ -88,7 +88,7 @@ sc.pl.violin(
 
 sc.pp.filter_cells(bone_adata, min_genes=200)
 sc.pp.filter_genes(bone_adata, min_cells=3)
-bone_adata = bone_adata[bone_adata.obs['pct_counts_MT'] < 10, :] # Example: Remove cells with >10% MT counts
+bone_adata = bone_adata[bone_adata.obs['pct_counts_MT'] < 10, :] #Remove cells with >10% MT counts
 
 #Normalization
 bone_adata.layers["counts"] = bone_adata.X.copy()
