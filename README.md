@@ -1,72 +1,111 @@
-# HackBio_project-2
-sc-seq analysis of bone marrow cells
-In this analysis, I processed single-cell RNA sequencing (scRNA-seq) data using the Scanpy pipeline, focusing on identifying cell clusters, inferring the tissue source using trajectory analysis, and determining the immune status of the patient (Healthy vs. Infected/Inflammatory).
+# **sc-seq analysis of bone marrow cells**
 
-Findings
-Based on the clustering, relative abundance, and trajectory (PAGA/DPT) analysis, the primary findings are:
+This repository contains a single-cell RNA-seq analysis of human bone marrow. The project identifies major immune and hematopoietic cell types, examines their biological roles, and interprets the health status of the donor. Analysis was performed using Scanpy, Decoupler, and PanglaoDB marker annotations.
 
-Identification of 8 cell clusters
-The following eight distinct cell clusters were successfully annotated from the dataset:
+## **Project Overview**
 
-Cluster ID	Cell Type Annotation
-0	Neutrophils
----	---
-1	Gamma delta T cells
----	---
-2	T memory cells
----	---
-3	NK cells
----	---
-4	B cells naive
----	---
-5	Platelets
----	---
-6	Plasma cels
----	---
-7	Monocytes
----	---
-The biological role of each cell type
+- Dataset: <https://github.com/josoga2/sc/raw/refs/heads/main/bone_marrow.h5ad> (14,783 cells, 17,374 genes)  
 
-Neutrophils: Short-lived, most abundant granulocytes, first responders in infection
+- Tools & Libraries: Scanpy, Anndata, Decoupler, igraph, matplotlib  
 
-Gamma delta T cells: Bridge between innate and adaptive immunity, recognize stress-induced molecules, provide rapid tissue surveillance, and are early defense cells.
+- Analysis steps:  
+  - Quality control and filtering  
 
-T memory cells: Long-lived, secondary effector responders during reinfection
+  - Normalization and log-transformation  
 
-NK cells: Do not need sensitization. regulate immunity via cytokine secretion.
+  - Highly variable gene selection  
 
-B cells naive: Activated by antigens, initiate the adaptive humoral response.
+  - PCA and UMAP for dimensionality reduction  
 
-Platelets: Small, essential for hemostasis, inflammation, and tissue repair.
+  - Clustering using leiden algorithm  
 
-Plasma cells: Terminally differentiated B lymphocytes, important in adaptive and humoral immunity.
+  - Cell type annotation using ULM scores with PanglaoDB markers  
 
-Monocytes: Macro police, perform phagocytosis and antigen presentation.
+  - Trajectory/pseudotime analysis using PAGA and DPT  
 
-3. Tissue Source: Likely Bone Marrow (BM)
-Although the sample appears depleted of true early progenitors, the cell population profile (a mix of Neutrophils, Monocytes, T cells, B cells, and Plasma cells) and their structural relationships found in the PAGA graph strongly suggest that this is likely a Bone Marrow. Below is my justification
-Expected vs. Missing Lineage Populations:
-There is a presence of Myeloid (Neutrophils, Monocytes), and multiple lymphoid lineages, but there are missing clusters for Hematopoietic Stem Cells (HSCs) or committed progenitors (CMP, CLP, Erythroid precursors). This diversity suggests a primary site of hematopoiesis (Bone Marrow), despite the absence of the earliest stem cells.
+## **Identified Cell Types**
 
-Typical Frequency Distribution
-There is an abundance of Neutrophils and Monocytes, active Plasma cells, and naive B cells, and this is common with Peripheral Blood (PB) (PB would have an abundance of T cells and largely Plasma cells). The PAGA plot shows a clear developmental connection between the myeloid cells and an implied progenitor component, and this balance favours a bone marrow microenvironment
+The analysis identified the following cell types:
 
-Presence and Absence of Progenitors
-There are no distinct progenitor clusters, but a clear structural hierarchy in the PAGA analysis, where the Neutrophils/Monocytes and B/T/Plasma cells arms originate from an inferred central structure, and this suggests that hematopoiesis is active, implying the source tissue is generative (Bone Marrow).
+- Neutrophils  
 
-Flaws in the Logic
-The primary flaw in concluding that this sample is definitely Bone Marrow is the absence of clearly annotated progenitor clusters. A pure and healthy Bone Marrow typically contains these progenitors.
+- Monocytes  
 
-The absence of these progenitors can mean one of these possibilities:
+- B cells naive  
 
-The sample is peripheral blood that was obtained during infection (this is not likely due to the high Neutrophil/B cell count).
-The sample is Bone Marrow, but the early cells were lost during processing or have a very low frequency.
-The clustering resolution was too low to separate small progenitor populations.
-Despite this flaw, the totality of the mature lineages and the developmental connectivity observed in the graph strongly favor a Bone Marrow origin over Peripheral Blood.
+- B cells memory  
 
-4. Patient Status: Likely Infected/Inflammatory
-This data is consistent with a patient who is experiencing an acute infection or severe inflammation, and this is supported by:
+- T cells CD4+  
 
-Massive Myeloid Response (Neutrophilia): Visual inspection of the clusters shows a large, dominant population of Neutrophils and Monocytes, indicating rapid immune mobilization.
-Emergency Myelopoiesis: The Diffusion Pseudotime trajectory places Neutrophils at the terminal end (highest pseudotime value). This indicates the cells are rapidly differentiating under stress, a classic sign of the body performing emergency myelopoiesis to fight infection.
-Active Humoral Response: The significant population of Plasma cells confirms an active, potent antibody-mediated immune defense against a recent or ongoing antigenic challenge.
+- T cells CD8+  
+
+- Natural Killer cells  
+
+- Plasma cells  
+
+- Dendritic cells  
+
+- Megakaryocytes  
+
+- Erythroid progenitors  
+
+## 2\. Biological Roles
+
+| Cell Type | Function in Bone Marrow / Immunity |
+| --- | --- |
+| Neutrophils | Short-lived phagocytes, first responders to infection |
+| --- | --- |
+| Monocytes | Precursors to macrophages/dendritic cells; innate immunity |
+| --- | --- |
+| B cells naive | Immature B cells, antigen-inexperienced |
+| --- | --- |
+| B cells memory | Antigen-experienced B cells, rapid response upon re-exposure |
+| --- | --- |
+| T cells CD4+ | Helper T cells; orchestrate immune responses |
+| --- | --- |
+| T cells CD8+ | Cytotoxic T cells; kill virus-infected or abnormal cells |
+| --- | --- |
+| Natural Killer cells | Innate cytotoxic lymphocytes; kill stressed or infected cells |
+| --- | --- |
+| Plasma cells | Antibody-producing terminal B cells |
+| --- | --- |
+| Dendritic cells | Antigen-presenting cells; initiate adaptive immunity |
+| --- | --- |
+| Megakaryocytes | Platelet-producing cells; support clotting |
+| --- | --- |
+| Erythroid progenitors | Early red blood cell precursors |
+| --- | --- |
+
+## **Tissue Source Justification**
+
+- Presence of erythroid progenitors and megakaryocytes supports bone marrow origin.  
+
+- Mature lymphocytes, neutrophils, and monocytes are expected in both blood and marrow; progenitor populations confirm marrow.  
+
+- Caveat: Some skew toward mature lymphocytes may indicate peripheral blood contamination.  
+
+Conclusion: Likely bone marrow tissue, with minor peripheral contribution.
+
+## **Health Status Interpretation**
+
+- Neutrophils & monocytes: Elevated proportions indicate an active immune response.  
+
+- Natural Killer cells: High activation states support infection detection.  
+
+- B & plasma cells: Differentiation from naive B cells toward plasma cells suggests recent antigen exposure.  
+
+Inference: The patient is likely experiencing an infection or immune challenge, as evidenced by shifts in immune cell populations and trajectory analysis.
+
+## **Analysis Pipeline Highlights**
+
+- Quality filtering: Removed cells with &lt;200 genes or &gt;10% mitochondrial reads  
+
+- Normalization: Total-count normalization and log1p transformation  
+
+- Dimensionality reduction: PCA and UMAP  
+
+- Clustering: Leiden algorithm (resolution=1.0)  
+
+- Cell type annotation: ULM scores from PanglaoDB markers  
+
+- Trajectory analysis: PAGA graph and DPT pseudotime
