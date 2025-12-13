@@ -1,14 +1,17 @@
 # **sc-seq analysis of bone marrow cells**
 
-This repository contains a single-cell RNA-seq analysis of human bone marrow. The project identifies major immune and hematopoietic cell types, examines their biological roles, and interprets the health status of the donor. Analysis was performed using Scanpy, Decoupler, and PanglaoDB marker annotations.
+This repository contains a single-cell RNA-sequencing (scRNA-seq) analysis of human bone marrow. The project identifies major immune and hematopoietic cell populations, examines their biological functions, and interprets the immune landscape in the context of inflammation and infection. The analysis was performed using Scanpy, Decoupler, and PanglaoDB marker annotations.
 
 ## **Project Overview**
 
-- Dataset: <https://github.com/josoga2/sc/raw/refs/heads/main/bone_marrow.h5ad> (14,783 cells, 17,374 genes)  
+- **Dataset:  
+    **<https://github.com/josoga2/sc/raw/refs/heads/main/bone_marrow.h5ad_(14,783> cells × 17,374 genes)  
+    _
+- **Tools & Libraries:  
+    **Scanpy, Anndata, Decoupler, igraph, matplotlib  
 
-- Tools & Libraries: Scanpy, Anndata, Decoupler, igraph, matplotlib  
-
-- Analysis steps:  
+- **Analysis Steps:  
+    **
   - Quality control and filtering  
 
   - Normalization and log-transformation  
@@ -17,29 +20,29 @@ This repository contains a single-cell RNA-seq analysis of human bone marrow. Th
 
   - PCA and UMAP for dimensionality reduction  
 
-  - Clustering using leiden algorithm  
+  - Clustering using the Leiden algorithm  
 
   - Cell type annotation using ULM scores with PanglaoDB markers  
 
-  - Trajectory/pseudotime analysis using PAGA and DPT  
+  - Trajectory and pseudotime analysis using PAGA and DPT  
 
 ## **Identified Cell Types**
 
-The analysis identified the following cell types:
+The following immune and hematopoietic cell types were identified:
 
 - Neutrophils  
 
 - Monocytes  
 
-- B cells naive  
+- Naïve B cells  
 
-- B cells memory  
+- Memory B cells  
 
-- T cells CD4+  
+- CD4⁺ T cells  
 
-- T cells CD8+  
+- CD8⁺ T cells  
 
-- Natural Killer cells  
+- Natural killer (NK) cells  
 
 - Plasma cells  
 
@@ -49,63 +52,87 @@ The analysis identified the following cell types:
 
 - Erythroid progenitors  
 
-## 2\. Biological Roles
+## **Biological Roles of Identified Cell Types**
 
-| Cell Type | Function in Bone Marrow / Immunity |
+| **Cell Type** | **Function in Bone Marrow / Immunity** |
 | --- | --- |
-| Neutrophils | Short-lived phagocytes, first responders to infection |
+| Neutrophils | Short-lived phagocytes; first responders to infection |
 | --- | --- |
-| Monocytes | Precursors to macrophages/dendritic cells; innate immunity |
+| Monocytes | Precursors to macrophages and dendritic cells; innate immunity |
 | --- | --- |
-| B cells naive | Immature B cells, antigen-inexperienced |
+| Naïve B cells | Antigen-inexperienced B cells |
 | --- | --- |
-| B cells memory | Antigen-experienced B cells, rapid response upon re-exposure |
+| Memory B cells | Antigen-experienced B cells enabling rapid recall responses |
 | --- | --- |
-| T cells CD4+ | Helper T cells; orchestrate immune responses |
+| CD4⁺ T cells | Helper T cells coordinating immune responses |
 | --- | --- |
-| T cells CD8+ | Cytotoxic T cells; kill virus-infected or abnormal cells |
+| CD8⁺ T cells | Cytotoxic T cells targeting infected or abnormal cells |
 | --- | --- |
-| Natural Killer cells | Innate cytotoxic lymphocytes; kill stressed or infected cells |
+| Natural killer cells | Innate cytotoxic lymphocytes mediating viral clearance |
 | --- | --- |
-| Plasma cells | Antibody-producing terminal B cells |
+| Plasma cells | Antibody-secreting terminal B cells |
 | --- | --- |
-| Dendritic cells | Antigen-presenting cells; initiate adaptive immunity |
+| Dendritic cells | Antigen-presenting cells initiating adaptive immunity |
 | --- | --- |
-| Megakaryocytes | Platelet-producing cells; support clotting |
+| Megakaryocytes | Platelet-producing cells involved in clotting |
 | --- | --- |
-| Erythroid progenitors | Early red blood cell precursors |
+| Erythroid<br><br>progenitors | Precursors of red blood cells |
 | --- | --- |
 
-## **Tissue Source Justification**
+## **Biological Interpretation of the Immune Landscape**
 
-- Presence of erythroid progenitors and megakaryocytes supports bone marrow origin.  
+The single-cell RNA-seq analysis reveals a heterogeneous immune landscape composed of innate and adaptive immune populations alongside hematopoietic progenitors. The identified cell types and their relative abundances provide insight into immune activity but must be interpreted with caution.
 
-- Mature lymphocytes, neutrophils, and monocytes are expected in both blood and marrow; progenitor populations confirm marrow.  
+### **Innate Immune Compartment**
 
-- Caveat: Some skew toward mature lymphocytes may indicate peripheral blood contamination.  
+- Neutrophils represent a major innate immune population. As professional phagocytes, they constitute the first line of defense against pathogens. Their relative enrichment is consistent with an acute inflammatory response, particularly in bacterial or viral infection contexts.
+- Monocytes, a mononuclear phagocytic population, are prominently represented. These cells contribute to phagocytosis, cytokine production, and antigen presentation via MHC class II pathways. Increased monocyte abundance is commonly associated with systemic inflammation and innate immune activation.
+- Dendritic cells, although less abundant, play a critical role in antigen processing and presentation, bridging innate and adaptive immunity.
+- Natural killer (NK) cells exhibit activation-associated transcriptional profiles. NK cells are central to viral recognition and clearance, mediating cytotoxicity against infected or stressed cells in an antigen-independent manner.
 
-Conclusion: Likely bone marrow tissue, with minor peripheral contribution.
+### **Adaptive Immune Compartment**
 
-## **Health Status Interpretation**
+The adaptive immune compartment includes CD4⁺ T cells, CD8⁺ T cells, and B cells, which together constitute the lymphoid fraction of peripheral blood mononuclear cells (PBMCs).
 
-- Neutrophils & monocytes: Elevated proportions indicate an active immune response.  
+- CD4⁺ T cells coordinate immune responses through cytokine secretion.
+- CD8⁺ T cells mediate cytotoxic killing of virus-infected cells.
+- Naïve B cells represent antigen-inexperienced lymphocytes.
+- Plasma cells, derived from activated B cells, function as antibody-secreting cells, indicating humoral immune activation and prior antigen exposure.
 
-- Natural Killer cells: High activation states support infection detection.  
+Pseudotime analysis reveals a differentiation trajectory from naïve B cells toward plasma cells, supporting ongoing or recent adaptive immune activation.
 
-- B & plasma cells: Differentiation from naive B cells toward plasma cells suggests recent antigen exposure.  
+**Hematopoietic and Tissue Context**
 
-Inference: The patient is likely experiencing an infection or immune challenge, as evidenced by shifts in immune cell populations and trajectory analysis.
+The presence of erythroid progenitors and megakaryocytes strongly supports a bone marrow origin, as these populations are typically absent from peripheral blood. However, the relatively high abundance of mature mononuclear immune cells resembles a PBMC-like composition, suggesting possible marrow aspirate contamination or immune cell enrichment.
+
+Notably, nuocytes (ILC2-like cells) were not clearly identified. Their absence may reflect biological rarity, limited sequencing depth, or marker overlap with other innate lymphoid populations.
+
+### **Immune State and Health Inference**
+
+While increased proportions of neutrophils, monocytes, NK cells, and plasma cells are consistent with an inflammatory or infectious immune response, cell-type proportions alone are insufficient to definitively determine patient health status. Immune composition may be influenced by:
+
+- inter-individual variability  
+
+- disease state or therapeutic intervention  
+
+- sampling and technical biases
+
+Therefore, the observed immune landscape should be interpreted as suggestive rather than diagnostic of an activated immune state.
+
+## **Summary**
+
+Overall, this dataset captures a coordinated immune response involving **phagocytosis**, **antigen presentation**, **viral recognition**, and **antibody production**, spanning both innate and adaptive arms of immunity. The findings align with an inflammatory immune environment but would benefit from validation across additional samples or conditions.
 
 ## **Analysis Pipeline Highlights**
 
-- Quality filtering: Removed cells with &lt;200 genes or &gt;10% mitochondrial reads  
+- Quality filtering: removed cells with &lt;200 detected genes or &gt;10% mitochondrial reads  
 
-- Normalization: Total-count normalization and log1p transformation  
+- Normalization: total-count normalization followed by log1p transformation  
 
 - Dimensionality reduction: PCA and UMAP  
 
-- Clustering: Leiden algorithm (resolution=1.0)  
+- Clustering: Leiden algorithm (resolution = 1.0)  
 
-- Cell type annotation: ULM scores from PanglaoDB markers  
+- Cell type annotation: ULM enrichment using PanglaoDB markers  
 
-- Trajectory analysis: PAGA graph and DPT pseudotime
+- Trajectory analysis: PAGA graph construction and DPT pseudotime inference
