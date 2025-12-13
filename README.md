@@ -4,14 +4,14 @@ This repository contains a single-cell RNA-sequencing (scRNA-seq) analysis of hu
 
 ## **Project Overview**
 
-- **Dataset:  
-    **<https://github.com/josoga2/sc/raw/refs/heads/main/bone_marrow.h5ad_(14,783> cells × 17,374 genes)  
+- Dataset:  
+    <https://github.com/josoga2/sc/raw/refs/heads/main/bone_marrow.h5ad_(14,783> cells × 17,374 genes)  
     _
-- **Tools & Libraries:  
-    **Scanpy, Anndata, Decoupler, igraph, matplotlib  
+- Tools & Libraries:  
+    Scanpy, Anndata, Decoupler, igraph, matplotlib  
 
-- **Analysis Steps:  
-    **
+- Analysis Steps:  
+    
   - Quality control and filtering  
 
   - Normalization and log-transformation  
@@ -121,7 +121,7 @@ Therefore, the observed immune landscape should be interpreted as suggestive rat
 
 ## **Summary**
 
-Overall, this dataset captures a coordinated immune response involving **phagocytosis**, **antigen presentation**, **viral recognition**, and **antibody production**, spanning both innate and adaptive arms of immunity. The findings align with an inflammatory immune environment but would benefit from validation across additional samples or conditions.
+Overall, this dataset captures a coordinated immune response involving phagocytosis, antigen presentation, viral recognition, and antibody production, spanning both innate and adaptive arms of immunity. The findings align with an inflammatory immune environment but would benefit from validation across additional samples or conditions.
 
 ## **Analysis Pipeline Highlights**
 
